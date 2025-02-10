@@ -1,0 +1,218 @@
+<ion-content *ngIf="isdeasPage">
+  <!-- Page Content -->
+  <div class="content-container">
+    <h2 class="page-title">Explore Our Ideas</h2>
+    <p class="page-subtitle">Gives you the best solution for all problems</p>
+
+    <!-- Idea Cards -->
+
+    <!-- <h2 class="left-align-heading" >your ideas</h2> -->
+    <div
+      class="idea-card"
+      *ngFor="let users of getAllUserdetaisList; let i = index"
+      [ngStyle]="{ 'background-color': '#5D86DA' }"
+    >
+      <h3>{{ users.description }}</h3>
+      <ion-icon
+        name="trash"
+        color="danger"
+        class="delete-icon"
+        (click)="onDeleteIdea(users.userId)"
+      ></ion-icon>
+      <div class="button-group">
+        <ion-button
+          fill="outline"
+          color="dark"
+          (click)="onWriteIdea(users.userId)"
+          >View Your Idea</ion-button
+        >
+        <ion-button
+          color="light"
+          (click)="
+            onReachOut(
+              users.fullName,
+              users.phoneNumber,
+              users.country,
+              users.state,
+              users.email
+            )
+          "
+          >Reach Out</ion-button
+        >
+      </div>
+    </div>
+
+    <!-- <h2 class="left-align-heading" >other ideas</h2>
+    <div class="idea-card" [ngStyle]="{'background-color': 'red'}">
+      <h3>cdcd</h3>
+      <div class="button-group">
+        <ion-button fill="outline" color="dark" >View Your Idea</ion-button>
+        <ion-button  color="light" >Reach Out</ion-button>
+      </div>
+    </div> -->
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isviewIdea">
+  <div class="profile-container">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6">
+        <button
+          class="back-button"
+          style="font-size: 20px"
+          (click)="backviewIdeas()"
+        >
+          &lt; Back
+        </button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-right">
+        <!-- Save Button aligned to the right -->
+        <button style="font-size: 20px" (click)="saveDetails()">
+          &lt; Save
+        </button>
+      </ion-col>
+    </ion-row>
+    <br />
+
+    <ion-grid class="form-container">
+      <!-- <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Full Name</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.fullName" placeholder="Your First Name"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.email" placeholder="Your First Name"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+      <!-- <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Country</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.country" placeholder="Your Country"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">State</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.state" placeholder="Your State"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+      <!-- <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">City</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.city" placeholder="Your City"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Address</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.address" placeholder="Your Address"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row>
+        <!-- <ion-col size="4">
+          <ion-item>
+            <ion-label position="floating">ZipCode</ion-label>
+            <ion-input [(ngModel)]="this.userDetails.zipCode" placeholder="Your ZipCode"></ion-input>
+          </ion-item>
+        </ion-col> -->
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Your File</ion-label>
+            <ion-row class="ion-align-items-start">
+              <ion-col size="8">
+                <ion-input [value]="userDetails.fileName" readonly></ion-input>
+                <input
+                  type="file"
+                  (change)="onFileSelected($event)"
+                  accept=".pdf,.doc,.docx"
+                  style="display: block; width: 100%"
+                  #fileInput
+                />
+              </ion-col>
+              <ion-col size="4" class="ion-align-self-start">
+                <ion-button fill="clear" (click)="downloadPDF()">
+                  <ion-icon slot="end" name="download-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-textarea
+              class="iontextariaClass"
+              [(ngModel)]="this.userDetails.description"
+              maxlength="100"
+              placeholder="Describe here your business plans"
+              fill="outline"
+            >
+            </ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isReachout">
+  <div class="profile-container">
+    <div class="div">
+      <button class="back-button" (click)="backReachout()">&lt; Back</button>
+    </div>
+    <br />
+
+    <div class="profile-header">
+      <ion-avatar class="profile-image">
+        <img src="path-to-profile-image.jpg" alt="Profile Picture" />
+      </ion-avatar>
+      <div class="profile-info">
+        <h2>{{ fullName }}</h2>
+        <p class="email">{{ emailid }}</p>
+      </div>
+    </div>
+
+    <ion-grid class="form-container">
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Full Name</ion-label>
+            <p>{{ fullName }}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Mobile Number</ion-label>
+            <p>{{ MobileNumber }}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">Country</ion-label>
+            <p>{{ country }}</p>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="stacked">state</ion-label>
+            <p>{{ state }}</p>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

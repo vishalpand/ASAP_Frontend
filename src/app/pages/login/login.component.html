@@ -1,0 +1,147 @@
+<ion-content *ngIf="isSign" class="login-content">
+  <div class="login-container">
+    <div class="illustration">
+      <img src="assets/images/login.webp" alt="Illustration" />
+    </div>
+
+    <h2 class="login-title">Login</h2>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        type="text"
+        [(ngModel)]="userAuth.userEmailorNumber"
+        placeholder="Email or Number"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        [type]="passwordVisible ? 'text' : 'password'"
+        [(ngModel)]="userAuth.password"
+        placeholder="Enter your password"
+      >
+      </ion-input>
+      <ion-icon
+        name="{{ passwordVisible ? 'eye' : 'eye-off' }}"
+        slot="end"
+        (click)="togglePasswordVisibility()"
+        style="color: #7d3dc1"
+      >
+      </ion-icon>
+    </ion-item>
+
+    <ion-button expand="block" class="login-button" (click)="onLogin()"
+      >Sign in</ion-button
+    >
+
+    <div class="additional-options">
+      <a class="forgot-password" (click)="forgetPassword()">Forgot Password?</a>
+      &nbsp;
+      <a class="register" (click)="onRegister()">Register</a>
+    </div>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isSingnUp" class="login-content">
+  <div class="login-container">
+    <div class="illustration">
+      <img src="assets/images/login.webp" alt="Illustration" />
+    </div>
+
+    <h2 class="login-title">Sign Up</h2>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        [(ngModel)]="userAuth.userName"
+        type="text"
+        placeholder="Enter UserName"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        [(ngModel)]="userAuth.userEmailorNumber"
+        type="text"
+        placeholder="Email or Number"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        [type]="passwordType"
+        placeholder="Password"
+        [(ngModel)]="userAuth.password"
+      ></ion-input>
+      <ion-icon
+        [name]="passwordIcon"
+        slot="end"
+        (click)="togglePasswordVisibility1('password')"
+      ></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        [type]="confirmPasswordType"
+        placeholder="Confirm Password"
+        [(ngModel)]="userAuth.confirmPassword"
+      ></ion-input>
+      <ion-icon
+        [name]="confirmPasswordIcon"
+        slot="end"
+        (click)="togglePasswordVisibility1('confirmPassword')"
+      ></ion-icon>
+    </ion-item>
+
+    <ion-button expand="block" class="login-button" (click)="saveUserAuth()"
+      >Sign Up</ion-button
+    >
+
+    <div class="additional-options">
+      <a class="register" (click)="AlreadyRegistered()"
+        >Already Register !! Click here</a
+      >
+    </div>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isPassword" class="login-content">
+  <div class="login-container">
+    <div class="illustration">
+      <img src="assets/images/login.webp" alt="Illustration" />
+    </div>
+    <h2 class="login-title">Update Password</h2>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        [type]="newPasswordType"
+        placeholder="New Password"
+        [(ngModel)]="userAuth.newPassword"
+      ></ion-input>
+      <ion-icon
+        [name]="newPasswordIcon"
+        slot="end"
+        (click)="togglePasswordVisibility2('newPassword')"
+      ></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" class="input-item">
+      <ion-input
+        [type]="confirmPasswordType"
+        placeholder="Confirm Password"
+        [(ngModel)]="userAuth.confirmPassword"
+      ></ion-input>
+      <ion-icon
+        [name]="confirmPasswordIcon"
+        slot="end"
+        (click)="togglePasswordVisibility2('confirmPassword')"
+      ></ion-icon>
+    </ion-item>
+
+    <ion-button expand="block" class="login-button" (click)="updatePass()"
+      >Update Password</ion-button
+    >
+    <ion-button expand="block" class="login-button" (click)="back()"
+      >Back</ion-button
+    >
+  </div>
+</ion-content>

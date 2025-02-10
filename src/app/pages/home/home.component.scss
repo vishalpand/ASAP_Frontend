@@ -1,0 +1,280 @@
+.banner {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.banner h2 {
+  font-size: 1.2em;
+  margin: 0 10px;
+  font-weight: bold;
+}
+
+.swiper-image {
+  width: 100%;
+  height: 250px; /* or your preferred height */
+  object-fit: cover; /* ensures the image covers the container properly */
+}
+
+ion-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin: 1px 0;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+}
+
+ion-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+ion-icon {
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
+.container {
+  padding: 16px;
+  padding-top: 45px;
+
+  h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  ion-item {
+    --border-radius: 10px;
+    --padding-start: 16px;
+    margin-bottom: 12px;
+  }
+
+  ion-input,
+  ion-textarea {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    background-color: #f3f3f3;
+    color: #000; // Ensure text color is visible in light mode
+    border-radius: 10px;
+
+    // Placeholder text color for light mode
+    &::part(placeholder) {
+      color: #666;
+    }
+
+    // Dark mode styles
+    @media (prefers-color-scheme: dark) {
+      background-color: #2c2c2e; // Dark background for input field
+      color: #fff; // Light text color for dark mode
+
+      &::part(placeholder) {
+        color: #aaa; // Light color for placeholder text in dark mode
+      }
+    }
+  }
+
+  ion-button {
+    margin-top: 20px;
+    --background: #60e0c6;
+  }
+
+  ion-label {
+    font-size: 14px;
+  }
+}
+
+.iontextariaClass {
+  display: flex;
+  --padding-start: 19px;
+  --padding-end: 16px;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.uplaodItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+}
+
+.uplaodLables {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #888;
+}
+
+.back-button {
+  position: absolute;
+  top: 40px; // Adjust as needed
+  left: 20px; // Adjust as needed
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #007bff; // Customize the color as desired
+  cursor: pointer;
+}
+
+.thankscontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+
+.success-icon {
+  width: 100px;
+  height: 100px;
+  background-color: #60e0c6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 50px;
+  color: white;
+}
+
+.h2class {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00d1b2;
+  margin: 0;
+}
+
+.pclass {
+  font-size: 16px;
+  color: #666;
+}
+
+.content-container {
+  padding: 16px;
+  text-align: center;
+
+  .page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+  }
+
+  .page-subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 24px;
+  }
+
+  .idea-card {
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    color: #fff;
+
+    h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-around;
+
+      ion-button {
+        width: 45%;
+        --border-radius: 8px;
+      }
+    }
+  }
+}
+
+.aplication {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 16px;
+  margin-top: 90px;
+  color: #333;
+}
+
+.applicant-list {
+  padding: 16px;
+
+  .applicant-item {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    ion-avatar {
+      margin-right: 12px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .applicant-info {
+      h3 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0;
+        color: #222;
+      }
+
+      p {
+        font-size: 14px;
+        color: #666;
+        margin: 4px 0 0;
+      }
+    }
+  }
+}
+
+.coming-soon-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.coming-soon-content {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 300px;
+  animation: fadeIn 0.5s ease-in-out;
+  /* Default (Light mode) styles */
+  background-color: white;
+  color: black;
+}
+
+/* Dark Mode Overrides */
+body.dark .coming-soon-content {
+  background-color: #333; /* Dark background */
+  color: white; /* Light text color */
+}
+
+/* Light Mode Overrides (Optional: can be adjusted to suit your app's light mode colors) */
+body.light .coming-soon-content {
+  background-color: white; /* Light background */
+  color: black; /* Dark text color */
+}

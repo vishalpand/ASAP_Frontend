@@ -1,0 +1,520 @@
+<div style="padding-top: 30px"></div>
+
+<ion-content *ngIf="isHome" color="white" class="ion-padding">
+  <h1 style="text-align: center">Time’s Ticking, So do it ASAP...!!!</h1>
+
+  <div class="banner">
+    <swiper-container
+      [modules]="swiperModules"
+      pagination="true"
+      pagination-clickable="true"
+      autoplay="true"
+      zoom="true"
+    >
+      <swiper-slide *ngFor="let image of slides">
+        <img
+          [src]="image.slide.banner"
+          [alt]="'Image description'"
+          class="swiper-image"
+        />
+      </swiper-slide>
+    </swiper-container>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card
+          style="background-color: #ffcc00"
+          (click)="navigateTo('startups-investors')"
+        >
+          <ion-card-content>
+            <ion-icon name="trending-up-outline"></ion-icon>
+            <span style="font-weight: bold; font-size: 25px"
+              >Startups & Investors</span
+            >
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-card color="primary" (click)="showComingSoon('jobs-internship')">
+          <ion-card-content>
+            <ion-icon name="briefcase-outline"></ion-icon>
+            <span style="font-weight: bold; font-size: 25px"
+              >Jobs & Internship</span
+            >
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-card color="success" (click)="showComingSoon('health-services')">
+          <ion-card-content>
+            <ion-icon name="heart-outline"></ion-icon>
+            <span style="font-weight: bold; font-size: 25px"
+              >Health & Services</span
+            >
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <br />
+  <h1 style="text-align: center">Innovation -> Good -> Work</h1>
+</ion-content>
+
+<ion-content *ngIf="isForm">
+  <div class="container">
+    <button (click)="back()">< Back</button>
+    <h2>Basic Details</h2>
+
+    <form [formGroup]="basicDetailsForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-input
+          placeholder="Full Name"
+          formControlName="FullName"
+          type="text"
+          fill="outline"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('FullName')?.touched &&
+          basicDetailsForm.get('FullName')?.invalid
+        "
+      >
+        First name is required (min 2 characters).
+      </ion-text>
+
+      <ion-item>
+        <ion-input
+          placeholder="Email"
+          formControlName="Email"
+          type="email"
+          fill="outline"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('Email')?.touched &&
+          basicDetailsForm.get('Email')?.invalid
+        "
+      >
+        Enter a valid email.
+      </ion-text>
+
+      <ion-item>
+        <ion-input
+          placeholder="Contact"
+          formControlName="contact"
+          type="tel"
+          fill="outline"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('contact')?.touched &&
+          basicDetailsForm.get('contact')?.invalid
+        "
+      >
+        Enter a valid 10-digit contact number.
+      </ion-text>
+
+      <ion-item>
+        <ion-input
+          placeholder="Address"
+          formControlName="Address"
+          type="text"
+          fill="outline"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('Address')?.touched &&
+          basicDetailsForm.get('Address')?.invalid
+        "
+      >
+        Address is required.
+      </ion-text>
+
+      <ion-item>
+        <!-- <ion-input
+          placeholder="Country"
+          formControlName="Country"
+          type="text"
+          fill="outline"
+        ></ion-input> -->
+
+        <ion-select
+          placeholder="Select Country"
+          #country
+          name="country"
+          formControlName="Country"
+          id="country"
+          (ionChange)="onCountryChange($event)"
+        >
+          <ion-select-option [value]="null"
+            >-- Select Your Country --</ion-select-option
+          >
+          <ion-select-option
+            *ngFor="let country of countries"
+            [value]="country | json"
+          >
+            {{ country.flag }}&nbsp;&nbsp;{{ country.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('Country')?.touched &&
+          basicDetailsForm.get('Country')?.invalid
+        "
+      >
+        Country is required (min 2 characters).
+      </ion-text>
+
+      <ion-item>
+        <ion-select
+          placeholder="Select states"
+          *ngIf="states"
+          #state
+          name="state"
+          id="state"
+          (ionChange)="onStateChange($event)"
+        >
+          <ion-select-option [value]="null"
+            >-- Select Your State --</ion-select-option
+          >
+          <ion-select-option
+            *ngFor="let state of states"
+            [value]="state | json"
+          >
+            {{ state.name }}
+          </ion-select-option>
+        </ion-select>
+
+        <!-- <ion-input
+          placeholder="State"
+          formControlName="State"
+          type="text"
+          fill="outline"
+        ></ion-input> -->
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('State')?.touched &&
+          basicDetailsForm.get('State')?.invalid
+        "
+      >
+        State is required.
+      </ion-text>
+
+      <ion-item>
+        <ion-select
+          placeholder="Select city"
+          *ngIf="cities"
+          #city
+          name="city"
+          id="city"
+          (ionChange)="onCityChange($event)"
+        >
+          <ion-select-option [value]="null"
+            >-- Select Your City --</ion-select-option
+          >
+          <ion-select-option *ngFor="let city of cities" [value]="city | json">
+            {{ city.name }}
+          </ion-select-option>
+        </ion-select>
+
+        <!-- <ion-input
+          placeholder="City"
+          formControlName="City"
+          type="text"
+          fill="outline"
+        ></ion-input> -->
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('City')?.touched &&
+          basicDetailsForm.get('City')?.invalid
+        "
+      >
+        City is required.
+      </ion-text>
+
+      <ion-item>
+        <ion-input
+          placeholder="Zip Code"
+          formControlName="zipCode"
+          type="text"
+          fill="outline"
+        ></ion-input>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('zipCode')?.touched &&
+          basicDetailsForm.get('zipCode')?.invalid
+        "
+      >
+        Enter a valid 5 or 6-digit zip code.
+      </ion-text>
+
+      <ion-item>
+        <ion-textarea
+          placeholder="Write about yourself..."
+          formControlName="about"
+          fill="outline"
+        ></ion-textarea>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('about')?.touched &&
+          basicDetailsForm.get('about')?.invalid
+        "
+      >
+        Please write at least 10 characters.
+      </ion-text>
+
+      <ion-item lines="none">
+        <ion-checkbox formControlName="acceptTerms" slot="start"></ion-checkbox>
+        <ion-label
+          >I accept the <a href="#">Privacy Policy</a> and
+          <a href="#">Terms</a></ion-label
+        >
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          basicDetailsForm.get('acceptTerms')?.touched &&
+          basicDetailsForm.get('acceptTerms')?.invalid
+        "
+      >
+        You must accept the terms to proceed.
+      </ion-text>
+
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="!basicDetailsForm.valid"
+        >Submit</ion-button
+      >
+    </form>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isForm1">
+  <button class="back-button" (click)="back1()">&lt; Back</button>
+  <br />
+  <div class="container">
+    <h2>Post Your Ideas</h2>
+
+    <form [formGroup]="ideaForm">
+      <!-- Textarea with validation message -->
+
+      <ion-item>
+        <ion-textarea
+          class="iontextariaClass"
+          maxlength="100"
+          placeholder="Describe here your business plans"
+          formControlName="description"
+          fill="outline"
+        >
+        </ion-textarea>
+      </ion-item>
+      <ion-text
+        color="danger"
+        *ngIf="
+          ideaForm.get('description')?.touched &&
+          ideaForm.get('description')?.invalid
+        "
+      >
+        Description is required and must be under 100 characters.
+      </ion-text>
+
+      <!-- File Upload Section with centered alignment -->
+      <ion-item class="uplaodItem">
+        <ion-label class="uplaodLables" text-center (click)="fileInput.click()">
+          <ion-icon name="cloud-upload-outline" size="large"></ion-icon>
+          <p>Upload your document file</p>
+          <!-- File input hidden, positioned for center-click upload -->
+          <input
+            style="margin-left: 32%"
+            #fileInput
+            type="file"
+            hidden
+            (change)="onFileChange($event)"
+            (click)="$event.stopPropagation()"
+          />
+        </ion-label>
+      </ion-item>
+
+      <!-- Upload Button -->
+      <ion-button expand="block" type="button" (click)="upload()">
+        Upload File
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="isThanks">
+  <button class="back-button" (click)="back2()">&lt; Back</button>
+
+  <div class="thankscontainer">
+    <div class="success-icon">
+      <ion-icon name="checkmark-outline"></ion-icon>
+    </div>
+    <h2 class="h2class">Thank You</h2>
+    <p class="pclass">Your Profile detail has been successful</p>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="showModal">
+  <!-- Coming Soon Modal -->
+  <div class="coming-soon-modal">
+    <div class="coming-soon-content">
+      <h2>Coming Soon...</h2>
+      <p>This feature is coming soon. Stay tuned!</p>
+      <ion-button (click)="closeModal()">Close</ion-button>
+    </div>
+  </div>
+</ion-content>
+
+<!-- <ion-content *ngIf="isdeasPage">
+
+
+  <div class="content-container">
+    <h2 class="page-title">Explore Our Ideas</h2>
+    <p class="page-subtitle">Gives you the best solution for all problems</p>
+
+   
+    <div class="idea-card" *ngFor="let idea of ideas; let i = index" [ngStyle]="{'background-color': idea.color}">
+      <h3>{{ idea.title }}</h3>
+      <div class="button-group">
+        <ion-button fill="outline" color="dark" (click)="onWriteIdea(i)">Write Your Idea</ion-button>
+        <ion-button  color="light" (click)="onReachOut(i)">Reach Out</ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content> -->
+
+<!-- <ion-content *ngIf="isApplication">
+  <button class="back-button" (click)="applicationBack()"> &lt; Back </button>
+  
+   <h2 class="aplication">Applicants</h2>
+
+
+   <div class="applicant-list">
+     <div class="applicant-item" *ngFor="let applicant of applicants">
+       <ion-avatar slot="start">
+         <img src="assets/images/Human.jpeg" alt="Avatar">
+       </ion-avatar>
+       <div class="applicant-info">
+         <h3>{{ applicant.name }}</h3>
+         <p>{{ applicant.date }}  {{ applicant.time }}</p>
+       </div>
+     </div>
+   </div>
+</ion-content> -->
+
+<!-- 
+<ion-content *ngIf="whenclickisdeasPage" >
+  <div class="container" >
+   <button (click)="isideaspageback()">< Back</button>
+    <h2>Basic Details</h2>
+
+    <form [formGroup]="basicDetailsForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-input
+          placeholder="Name"
+          formControlName="name"
+          type="text"
+          fill="outline">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          placeholder="Contact"
+          formControlName="contact"
+          type="tel"
+          fill="outline">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          placeholder="Email"
+          formControlName="email"
+          type="email"
+          fill="outline">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea
+          placeholder="Write About yourself.."
+          formControlName="about"
+          fill="outline">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-checkbox formControlName="acceptTerms" slot="start"></ion-checkbox>
+        <ion-label>I accept the <a href="#">Privacy Policy</a> and <a href="#">Terms</a></ion-label>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" >Submit</ion-button>
+    </form>
+  </div>
+
+</ion-content>
+ -->
+
+<!-- 
+<ion-content *ngIf="whenclickisdeasPage1" >
+  <button class="back-button" (click)="back1()"> &lt; Back </button>
+  <br>
+  <div class="container">
+    <h2>Post Your Ideas</h2>
+
+    <form >
+      <ion-item>
+        <ion-textarea class="iontextariaClass"
+          placeholder="Describe here your business plans"
+          formControlName="description"
+          fill="outline">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-item class="uplaodItem">
+        <ion-label class="uplaodLables" text-center>
+          <ion-icon name="cloud-upload-outline" size="large"></ion-icon>
+          <p>Upload your document file</p>
+          <input type="file"  hidden>
+        </ion-label>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" (click)="upalod()"  >
+        Upload File
+      </ion-button>
+    </form>
+  </div>
+
+
+</ion-content>
+
+
+
+
+
+ -->

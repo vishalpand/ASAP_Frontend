@@ -1,0 +1,10 @@
+{
+  "name": "mobile1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "watch": {
+    "exclude": ["node_modules/**", "dist/**"]
+  }
+}
