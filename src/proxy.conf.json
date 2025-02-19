@@ -1,0 +1,7 @@
+{
+  "/**": {
+    "target": "https://asap.up.railway.app",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
