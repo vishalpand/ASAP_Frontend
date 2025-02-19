@@ -12,6 +12,11 @@ const config: CapacitorConfig = {
       maxVersions: 2,
     },
   },
+  server: {
+    cleartext: true,
+    // allowNavigation: ['asap.up.railway.app'],
+    androidScheme: 'https',
+  },
 };
 
 export default config;

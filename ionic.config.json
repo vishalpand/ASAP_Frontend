@@ -4,6 +4,12 @@
     "capacitor": {}
   },
   "type": "angular",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://asap.up.railway.app"
+    }
+  ],
   "watch": {
     "exclude": ["node_modules/**", "dist/**"]
   }
