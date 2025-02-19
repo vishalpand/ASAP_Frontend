@@ -108,10 +108,15 @@ export class HomeComponent implements OnInit {
 
   selectConrty: any;
 
+  selectedCountry1: any;
+  selectedState1: any;
+  selectedCity1: any;
+
   onCountryChange(event: any) {
     console.log('yes');
     this.selectConrty = JSON.parse(event.detail.value);
     const selectedCountry = JSON.parse(event.detail.value); // This gives the selected country object.
+    this.selectedCountry1 = this.selectConrty.name;
     this.states = State.getStatesOfCountry(selectedCountry.isoCode);
     this.selectedCountry = selectedCountry;
     this.cities = this.selectedState = this.selectedCity = null;
@@ -124,6 +129,7 @@ export class HomeComponent implements OnInit {
     if (event && event.detail && event.detail.value) {
       // const selectedCountry = JSON.parse(this.country.nativeElement.value);
       const selectedState = JSON.parse(event.detail.value); // Get the state from the event
+      this.selectedState1 = selectedState.name;
       this.cities = City.getCitiesOfState(
         this.selectConrty.isoCode,
         selectedState.isoCode
@@ -136,7 +142,9 @@ export class HomeComponent implements OnInit {
   }
 
   onCityChange(event: any): void {
-    this.selectedCity = JSON.parse(this.city.nativeElement.value);
+    this.selectedCity = JSON.parse(event.detail.value);
+    const cityValue = this.selectedCity;
+    this.selectedCity1 = cityValue.name;
   }
 
   clear(type: string): void {
@@ -175,6 +183,7 @@ export class HomeComponent implements OnInit {
           this.isForm = true;
           this.isForm1 = false;
           this.isHome = false;
+          this.countries = Country.getAllCountries();
         } else {
           this.appcomponet.Onlogout();
         }
@@ -199,6 +208,9 @@ export class HomeComponent implements OnInit {
 
     if (this.basicDetailsForm) {
       this.basicDetailsForm.reset();
+
+      this.states = [];
+      this.cities = [];
     }
 
     if (this.ideaForm) {
@@ -232,16 +244,37 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/ideas']);
   }
 
-  onSubmit() {
-    if (this.basicDetailsForm.valid) {
-      console.log(this.basicDetailsForm.value);
-      // Handle form submission logic here
-    }
+  onSubmit(): void {
+    // Ensure selected values are set in the form
+    this.basicDetailsForm.patchValue({
+      City: this.selectedCity,
+      State: this.selectedState,
+      Country: this.selectedCountry1,
+    });
 
-    this.isHome = false;
-    this.isForm = false;
-    this.isForm1 = true;
-    this.whenclickisdeasPage = false;
+    // Mark all form controls as touched to trigger validation messages
+    this.basicDetailsForm.markAllAsTouched();
+
+    // Check if the form is valid before proceeding
+    if (this.basicDetailsForm.valid) {
+      console.log('Form Submitted Successfully:', this.basicDetailsForm.value);
+
+      // Handle form submission logic
+      this.isHome = false;
+      this.isForm = false;
+      this.isForm1 = true;
+      this.whenclickisdeasPage = false;
+    } else {
+      console.log('Form is invalid. Please check the errors.');
+
+      // Display error messages if fields are empty
+      Object.keys(this.basicDetailsForm.controls).forEach((key) => {
+        const control = this.basicDetailsForm.get(key);
+        if (control && control.invalid) {
+          console.log(`${key} is invalid:`, control.errors);
+        }
+      });
+    }
   }
 
   onFileChange(event: Event) {
