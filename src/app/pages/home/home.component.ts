@@ -247,8 +247,8 @@ export class HomeComponent implements OnInit {
   onSubmit(): void {
     // Ensure selected values are set in the form
     this.basicDetailsForm.patchValue({
-      City: this.selectedCity,
-      State: this.selectedState,
+      City: this.selectedCity1,
+      State: this.selectedState1,
       Country: this.selectedCountry1,
     });
 
@@ -286,7 +286,9 @@ export class HomeComponent implements OnInit {
 
   upload() {
     const description = this.ideaForm.get('description')?.value;
+
     const country = this.ideaForm.get('Country')?.value;
+
     console.log('Description:', description);
 
     if (this.uploadedFile) {
